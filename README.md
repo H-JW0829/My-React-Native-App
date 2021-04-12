@@ -28,7 +28,7 @@ expo start
 
 ## 目录结构
 ├── app                         // 应用代码  
-    >>├── config                  // 配置信息  
+>>├── config                  // 配置信息  
         ├── color.ts  
         ├── styles.ts   
         ├── commonVar.ts          // 在此修改后端端口号和socket服务器端口   
