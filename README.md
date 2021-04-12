@@ -27,14 +27,14 @@ expo start
 5.也可以“Run on iOS simulator”或者“Run on Android device/emulator”来在模拟器上运行应用程序
 
 ## 目录结构
-├── app                         // 应用代码
-    ├── config                  // 配置信息
-      ├── color.ts
-      ├── styles.ts
-      ├── commonVar.ts          // 在此修改后端端口号和socket服务器端口
-    ├── page                    // 页面
-    ├── component               // 组件
-    ├── store                   // mobx状态管理
-    ├── common                  // 公用方法
-    ├── assets                  // 静态资源
-├── App.tsx                     // 根入口
+├── app                         // 应用代码. 
+    ├── config                  // 配置信息. 
+      ├── color.ts. 
+      ├── styles.ts. 
+      ├── commonVar.ts          // 在此修改后端端口号和socket服务器端口. 
+    ├── page                    // 页面. 
+    ├── component               // 组件. 
+    ├── store                   // mobx状态管理. 
+    ├── common                  // 公用方法. 
+    ├── assets                  // 静态资源. 
+├── App.tsx                     // 根入口. 
