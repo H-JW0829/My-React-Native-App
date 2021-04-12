@@ -27,7 +27,7 @@ expo start
 5.也可以“Run on iOS simulator”或者“Run on Android device/emulator”来在模拟器上运行应用程序
 
 ## 目录结构
-├── app                         // 应用代码. 
+├── app                         // 应用代码  
     ├── config                  // 配置信息. 
       ├── color.ts. 
       ├── styles.ts. 
