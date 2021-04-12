@@ -41,16 +41,16 @@ expo start
 ├── App.tsx                     // 根入口  
 
 ## 效果演示
-1.登录
-2.注册
-3.首页
-![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/gif/1.gif)
-
-4.发布物品
-![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/gif/2.gif)
-
-5.我的物品&&聊天界面
-![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/gif/3.gif)
+1.登录  
+![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/login.png)    
+2.注册  
+![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/register.png)  
+3.首页  
+![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/gif/1.gif)  
+4.发布物品  
+![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/gif/2.gif)  
+5.我的物品&&聊天界面  
+![image](https://github.com/H-JW0829/My-React-Native-App/blob/master/assets/gif/3.gif)  
 
 
 
