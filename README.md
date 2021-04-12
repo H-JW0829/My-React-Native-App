@@ -37,4 +37,5 @@ expo start
 >├── store                   // mobx状态管理   
 >├── common                  // 公用方法  
 >├── assets                  // 静态资源  
+
 ├── App.tsx                     // 根入口  
