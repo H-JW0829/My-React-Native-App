@@ -1,8 +1,8 @@
 # My-React-Native-App
-基于expo搭建的React Native+Node.js仿闲鱼(项目代号：闲猪)项目
+基于expo搭建的React Native+Node.js+ts仿闲鱼(项目代号：闲猪)项目
 
 ## 技术栈
-前端基于[expo](https://docs.expo.io/)搭建（通用的React应用程序框架和平台，围绕React Native和native平台的工具集），表单采用[formik](https://formik.org/)，状态管理采用[mobx](https://cn.mobx.js.org/)
+前端采用ts，基于[expo](https://docs.expo.io/)搭建（通用的React应用程序框架和平台，围绕React Native和native平台的工具集），表单采用[formik](https://formik.org/)，状态管理采用[mobx](https://cn.mobx.js.org/)
 后端基于Node.js的[koa2](https://koa.bootcss.com/)框架搭建一个简单的服务器
 数据库采用MongoDB，同时采用Socket.io进行服务器和客户端的即时通讯
 
@@ -39,6 +39,7 @@ expo start
 >├── assets                  // 静态资源  
 
 ├── App.tsx                     // 根入口  
+├── my-app-server               // 服务端代码    
 
 ## 效果演示
 1.登录  
