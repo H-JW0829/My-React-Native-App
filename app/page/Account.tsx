@@ -37,12 +37,19 @@ const logout = [
   },
 ];
 
-export default function Account({ navigation }) {
+interface Params {
+  navigation?: {
+    navigate: (...params: any[]) => void;
+    [propName: string]: any;
+  };
+}
+
+export default function Account({ navigation }: Params) {
   const [user, setUser] = useState({});
 
   const handleNavigate = useCallback(
     (item) => {
-      navigation.navigate(item.path);
+      navigation && navigation.navigate(item.path);
     },
     [navigation]
   );
@@ -50,9 +57,8 @@ export default function Account({ navigation }) {
   useEffect(() => {
     const getUser = async () => {
       let user = await AsyncStorage.getItem('user');
-      user = JSON.parse(user);
-      //   console.log(user);
-      setUser(user);
+      user = JSON.parse(user || '{}');
+      setUser(user as Object);
     };
 
     getUser();
@@ -62,10 +68,12 @@ export default function Account({ navigation }) {
     Alert.alert('logout', 'Are you sure to logout?', [
       {
         text: 'Cancel',
-        // onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      { text: 'Yes', onPress: () => navigation.navigate('Login') },
+      {
+        text: 'Yes',
+        onPress: () => navigation && navigation.navigate('Login'),
+      },
     ]);
   }, [navigation]);
 
@@ -90,8 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
-    // padding: 10,
     alignItems: 'center',
-    // backgroundColor: 'tomato',
   },
 });

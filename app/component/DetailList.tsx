@@ -12,8 +12,12 @@ import MyText from '../component/Form/Text';
 import colors from '../config/colors';
 
 interface Params {
-  item: Object;
-  otherStyle?: Object;
+  item: {
+    [propName: string]: any;
+  };
+  otherStyle?: {
+    [propName: string]: any;
+  };
   desc?: string;
 }
 

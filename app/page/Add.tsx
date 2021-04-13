@@ -1,23 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-  Modal,
-  TouchableHighlight,
-} from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Yup from 'yup';
 import {} from 'formik';
 
-import Screen from './Screen';
 import Form from '../component/Form/Form';
 import FormField from '../component/Form/FormField';
 import SubmitButton from '../component/Form/SubmitButton';
-import Button from '../component/Button';
-import colors from '../config/colors';
 import Picker from '../component/Form/FormPicker';
 import CategoryPickerItem from '../component/CategoryPickerItem';
 import MyImagePicker from '../component/ImagePicker';
@@ -39,18 +28,16 @@ const validationSchema = Yup.object().shape({
   category: Yup.object().required().nullable().label('Category'),
 });
 
-//create your forceUpdate hook
-function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue((value) => ++value); // update the state to force render
+interface Params {
+  navigation: {
+    [propName: string]: any;
+  };
 }
 
-export default function Add({ navigation }) {
+export default function Add({ navigation }: Params) {
   const [images, setImages] = useState([1]);
   const [categories, setCategories] = useState([]);
   const [imageUrl, setImageUrl] = useState<Array<string>>([]);
-  // const [modalVisible, setModalVisible] = useState(false);
-  const forceUpdate = useForceUpdate();
   const [key, setKey] = useState(0);
 
   useEffect(() => {
@@ -66,9 +53,8 @@ export default function Add({ navigation }) {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      setKey(key + 1);
+      setKey(key + 1); //给子组件不同的key触发子组件的remount
     });
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, []);
 
@@ -109,7 +95,7 @@ export default function Add({ navigation }) {
   const handleAdd = useCallback(
     async (values, actions) => {
       let user = await AsyncStorage.getItem('user');
-      user = user ? JSON.parse(user) : null;
+      user = JSON.parse(user || '{}');
       const { category, desc, title, price } = values;
       const response = await post('/list/add', {
         category: category._id,
@@ -117,7 +103,7 @@ export default function Add({ navigation }) {
         desc,
         price,
         images: [...imageUrl],
-        user: user?._id,
+        user: (user as Object)._id,
       });
       if (response.code === 0) {
         Alert.alert('success', 'Add Success');
@@ -190,28 +176,6 @@ export default function Add({ navigation }) {
         />
         <SubmitButton title="Post" />
       </Form>
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <MyText style={styles.modalText}>发布成功！</MyText>
-            <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={styles.textStyle}>确定</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </Modal> */}
     </View>
   );
 }

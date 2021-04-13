@@ -31,7 +31,7 @@ export default function UserList({
             onPress={() => handlePress(item)}
           >
             <MaterialCommunityIcons
-              name={item.icon.name}
+              name={item?.icon?.name}
               size={item.icon.size || 24}
               color={item.icon.color}
             />

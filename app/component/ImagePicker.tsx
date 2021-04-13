@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState, useEffect } from 'react';
 import {
   StyleSheet,
@@ -8,10 +7,11 @@ import {
   Platform,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import RNFS from 'react-native-fs';
 
 interface Params {
-  otherStyle?: Object;
+  otherStyle?: {
+    [propName: string]: any;
+  };
   callBack?: (a: Object) => boolean;
 }
 
@@ -37,7 +37,7 @@ function MyImagePicker({ otherStyle, callBack, ...otherProps }: Params) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
-      base64: otherProps.isBase64 ? true : false,
+      base64: (otherProps as any).isBase64 ? true : false,
     });
     if (!result.cancelled) {
       if (callBack) {

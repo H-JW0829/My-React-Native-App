@@ -1,81 +1,18 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-  ScrollView,
-} from 'react-native';
+import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
 
 import List from '../component/List';
 import ItemTag from '../component/ItemTag';
 import { get, post } from '../common/http';
 import { useGetCategory } from '../common/hooks';
 
-const Data = [
-  {
-    id: 1,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 2,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 3,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 4,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 5,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 6,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 7,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 8,
-    image: require('../assets/cake.png'),
-    title: 'cake',
-    subTitle: '$99',
-  },
-];
+interface Params {
+  navigation: {
+    [propName: string]: any;
+  };
+}
 
-const Tags = [
-  'Book',
-  'Fruit',
-  'Vegetable',
-  'Computer',
-  'Book',
-  'Fruit',
-  'Vegetable',
-  'Computer',
-];
-
-export default function Business({ navigation }) {
+export default function Business({ navigation }: Params) {
   const [activeIndex, setActiveIndex] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const [list, setList] = useState([]);
@@ -96,14 +33,7 @@ export default function Business({ navigation }) {
   }, []);
 
   useEffect(() => {
-    // const getAllCategory = async () => {
-    //   const response = await get('/category/getAll');
-    //   if (response.code === 0) {
-    //     setCategories(response.data.categories);
-    //   }
-    // };
     getAllList();
-    // getAllCategory();
   }, []);
 
   const renderItem = ({ item }) => {
@@ -126,7 +56,7 @@ export default function Business({ navigation }) {
       setActiveIndex(index);
       const category = categories[index];
       const res = LIST.filter((item) => {
-        return item.category._id === category._id;
+        return item.category?._id === category._id;
       });
       //   console.log(res);
       setList(res);
@@ -194,11 +124,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tagWrapper: {
-    // flexDirection: 'row',
     height: 50,
     width: '100%',
-    // alignItems: 'center',
-    // backgroundColor: 'tomato',
   },
   scrollViewStyle: {
     flexDirection: 'row',

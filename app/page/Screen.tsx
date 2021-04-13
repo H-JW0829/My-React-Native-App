@@ -19,11 +19,9 @@ const styles = StyleSheet.create({
   screen: {
     paddingTop: Constants.statusBarHeight,
     flex: 1,
-    // backgroundColor: 'gold',
   },
   view: {
     flex: 1,
-    // backgroundColor: 'lightblue',
   },
 });
 

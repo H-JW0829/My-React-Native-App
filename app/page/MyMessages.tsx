@@ -13,7 +13,16 @@ import { useObserver, useLocalStore } from 'mobx-react';
 import MsgItem from '../component/MsgItem';
 import { userStore, conversionStore } from '../store';
 
-export default function MyMessages({ navigation, route }) {
+interface Params {
+  route: {
+    [propName: string]: any;
+  };
+  navigation: {
+    [propName: string]: any;
+  };
+}
+
+export default function MyMessages({ navigation, route }: Params) {
   const deleteConversion = useCallback((row) => {
     conversionStore.deleteConversion(row);
   }, []);

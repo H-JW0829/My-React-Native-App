@@ -1,27 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet,
-  Image,
   TextInput,
-  SafeAreaView,
   TouchableOpacity,
   View,
   FlatList,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useObserver, useLocalStore } from 'mobx-react';
+import { useObserver } from 'mobx-react';
 
 import ChatItem from '../component/ChatItem';
-// import { SafeAreaView } from 'react-native-safe-area-context';
 import Screen from './Screen';
 import MyText from '../component/Form/Text';
-import { sendMsg, socket } from '../common/utils';
-import { get, post } from '../common/http';
+import { sendMsg } from '../common/utils';
+import { post } from '../common/http';
 import { userStore, msgStore, conversionStore } from '../store';
 
-function Chat({ navigation, route }) {
+interface Params {
+  navigation: {
+    [propName: string]: any;
+  };
+  route: {
+    [propName: string]: any;
+  };
+}
+
+function Chat({ navigation, route }: Params) {
   const [text, onChangeText] = useState('');
-  // const localStore = useLocalStore(() => msgStore);
 
   const sendMessage = useCallback(async () => {
     const { to, from } = route.params;
@@ -49,18 +53,25 @@ function Chat({ navigation, route }) {
     };
     init();
 
-    return async () => {
-      const response = await post('/conversion/reset', {
-        conversionID: msgStore.conversionID,
-        user: route.params.from?._id,
-      });
-      if (response.code === 0) {
-        conversionStore.resetConversion(response.data.conversion);
-      }
+    return () => {
+      const resetConversion = async () => {
+        const response = await post('/conversion/reset', {
+          conversionID: msgStore.conversionID,
+          user: route.params.from?._id,
+        });
+        if (response.code === 0) {
+          conversionStore.resetConversion(response.data.conversion);
+        }
+      };
+      resetConversion();
     };
   }, []);
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({
+    item,
+  }: {
+    item: { from: { [propName: string]: any }; text: string };
+  }) => {
     const isMe = item.from._id === userStore.user._id ? true : false;
     return (
       <ChatItem

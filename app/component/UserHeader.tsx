@@ -5,7 +5,9 @@ import MyText from './Form/Text';
 
 interface Params {
   otherStyle?: Object;
-  user: Object;
+  user: {
+    [propName: string]: any;
+  };
 }
 
 export default function UserHeader({ user, otherStyle }: Params) {

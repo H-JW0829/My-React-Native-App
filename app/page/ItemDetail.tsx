@@ -19,9 +19,11 @@ import MyText from '../component/Form/Text';
 
 interface Params {
   route: {
-    params: Object;
+    [propName: string]: any;
   };
-  navigation: Object;
+  navigation: {
+    [propName: string]: any;
+  };
 }
 
 function Detail({ route, navigation }: Params) {
@@ -37,8 +39,8 @@ function Detail({ route, navigation }: Params) {
 
   const handleContact = useCallback(async () => {
     let user = await AsyncStorage.getItem('user');
-    user = JSON.parse(user);
-    if (user._id === item.user._id) return;
+    user = JSON.parse(user || '{}');
+    if (user?._id === item.user._id) return;
     navigation.navigate('Chat', {
       to: item.user,
       from: user,

@@ -14,36 +14,13 @@ import ItemTag from '../component/ItemTag';
 import { post } from '../common/http';
 import { useGetCategory } from '../common/hooks';
 
-const Data = [
-  {
-    id: 1,
-    images: [
-      'http://cd7.yesapi.net/5687BCD24AA4D3C1ED073F5C8AC17C6B_20210407212018_b4059f14c96830cdcda621f5beed0b60.jpg',
-    ],
-    title: 'cake',
-    subTitle: '$99',
-  },
-  {
-    id: 2,
-    images: [
-      'http://cd7.yesapi.net/5687BCD24AA4D3C1ED073F5C8AC17C6B_20210407212018_b4059f14c96830cdcda621f5beed0b60.jpg',
-    ],
-    title: 'cake',
-    subTitle: '$99',
-  },
-];
+interface Params {
+  navigation: {
+    [propName: string]: any;
+  };
+}
 
-const Tags = [
-  'Book',
-  'Fruit',
-  'Vegetable',
-  'Computer',
-  'Book',
-  'Fruit',
-  'Vegetable',
-  'Computer',
-];
-export default function MyListings({ navigation }) {
+export default function MyListings({ navigation }: Params) {
   const [activeIndex, setActiveIndex] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
   const categories = useGetCategory();
@@ -57,11 +34,11 @@ export default function MyListings({ navigation }) {
   useEffect(() => {
     const init = async () => {
       let user = await AsyncStorage.getItem('user');
-      user = JSON.parse(user);
+      user = JSON.parse(user || '{}');
 
       const getMyList = async () => {
         const response = await post('/list/getMyList', {
-          user: user._id,
+          user: user?._id,
         });
         if (response.code === 0) {
           setList(response.data.lists);
@@ -96,7 +73,7 @@ export default function MyListings({ navigation }) {
       //   console.log(category);
       //   console.log(LIST);
       const res = LIST.filter((item) => {
-        return item.category === category._id;
+        return item?.category === category?._id;
       });
       //   console.log(res);
       setList(res);
@@ -118,7 +95,7 @@ export default function MyListings({ navigation }) {
           {categories.map((tag, index) => {
             return (
               <ItemTag
-                key={tag._id}
+                key={tag?._id}
                 tag={tag?.title}
                 index={index}
                 otherStyle={{

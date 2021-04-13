@@ -1,9 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import React from 'react';
+import { StyleSheet, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import socketIOClient from 'socket.io-client';
 
 import Login from './app/page/Login';
 import Register from './app/page/Register';

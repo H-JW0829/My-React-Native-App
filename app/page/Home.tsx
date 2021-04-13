@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-  Platform,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, View, Image, SafeAreaView, Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Constants from 'expo-constants';
 import { FontAwesome } from '@expo/vector-icons';
@@ -21,7 +13,14 @@ import { userStore } from '../store';
 
 const Tab = createBottomTabNavigator();
 
-export default function Home({ navigation }) {
+interface Params {
+  navigation: {
+    [propName: string]: any;
+  };
+  ConversionStore: Object;
+}
+
+export default function Home({ navigation }: Params) {
   useEffect(() => {
     const user = userStore.user;
     initIO(user);
@@ -67,8 +66,8 @@ export default function Home({ navigation }) {
             }
             let iconName;
             route.name === 'Business'
-              ? (iconName = 'home')
-              : (iconName = 'user');
+              ? (iconName = 'home' as const)
+              : (iconName = 'user' as const);
             // You can return any component that you like here!
             return <FontAwesome name={iconName} size={size} color={color} />;
           },
@@ -108,7 +107,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    // alignItems: 'center',
-    // backgroundColor: 'blue',
   },
 });

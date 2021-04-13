@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
 
 const width = 300;
 
-function Register({ navigation }) {
+function Register({ navigation }: { navigation: { [propName: string]: any } }) {
   const [image, setImage] = useState('');
 
   const handleSubmit = useCallback(
@@ -63,7 +63,6 @@ function Register({ navigation }) {
   );
 
   const handlePick = useCallback(async (image) => {
-    //   console.log(image);
     const fileName = image.uri.split('/')[-1];
     try {
       const response = await post(

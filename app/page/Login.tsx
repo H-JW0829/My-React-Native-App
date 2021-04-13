@@ -24,14 +24,18 @@ const validationSchema = Yup.object().shape({
 
 const width = 300;
 
-export default function Login({ navigation }) {
+interface Params {
+  navigation: {
+    [propName: string]: any;
+  };
+}
+
+export default function Login({ navigation }: Params) {
   const handleLogin = useCallback(
     async (values) => {
       const { tel, password } = values;
-      //   console.log('tels', tel);
       const response = await post('/user/login', { tel, password });
       if (response.code === 0) {
-        // const {_id,nickname,avatar} = response.data;
         userStore.initUser(response.data);
         const jsonValue = JSON.stringify(response.data);
         await AsyncStorage.setItem('user', jsonValue);
